@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>		// manipulate output to format
-#include <cctype>	    	// to use cin.fail() for validation
 #include <limits>  		// to set max limit for cin.ignore()
 #include <string>		// accepts string characters
 
@@ -10,17 +9,16 @@ using namespace std;
 const double UNIT_SPOOL_CHARGE = 100.00, // 100.00 per spool
 	       SHIPPING_CHARGE =  10.00;   // Default shipping charge
 //Constant strings, since the questions never change
-const string question1 = "How many spools were ordered? ",
-             question2 = "How many spools are in stock? ",
-	     question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
+const string QUESTION1 = "How many spools were ordered? ",
+             QUESTION2 = "How many spools are in stock? ",
+	     QUESTION3 = "Amount of special shipping charges, per spool,\n" 
+			 			 "above the regular $10.00 per spool rate (0 for none): ";
 	         
 // Function prototypes
-void getOrderInfo (int &, int &, double &);						//Grabs order info
-void processDisplayStatus(int, int, double = SHIPPING_CHARGE);	//Final output
-void readInput(int &, int, string);			//Loops for numberChecker
-void readInput(double &, int, string);			//Overload for doubles
-bool numberChecker(int, int); 	 //Function to handle ints
-bool numberChecker(double, int); //Overloader function to handle doubles
+void getOrderInfo (int &, int &, double &);											//Grabs order info
+void processDisplayStatus(const int &, const int &, const double& = SHIPPING_CHARGE);	//Final output, passed by const reference
+void integerValidation(int &, int, string); 	 					    				//Function to handle ints
+void doubleValidation(double &, int, string); 										//Overloader function to handle doubles
 
 //EXECUTE MAIN FUNCTION
 int main()
@@ -49,9 +47,9 @@ int main()
  *************************************************************/
 void getOrderInfo (int &order, int &in_stock, double &special_charge)
 {	
-	readInput(order, 1, question1);
-	readInput(in_stock, 0, question2);
-	readInput(special_charge, 0, question3);
+	integerValidation(order, 1, QUESTION1);
+	integerValidation(in_stock, 0, QUESTION2);
+	doubleValidation(special_charge, 0, QUESTION3);
 }
 
 
@@ -64,7 +62,7 @@ void getOrderInfo (int &order, int &in_stock, double &special_charge)
  * charge is $10.00. This information is used to display an    *
  * order status report.                                        *
  ***************************************************************/
-void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
+void processDisplayStatus(const int &numOrdered, const int &inStock, const double &ShipChg)
 {
 	//Checks inStock against the number ordered
 	int backStock = numOrdered - inStock; 
@@ -80,9 +78,9 @@ void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
 	//Equations for display. Figure out shipping charge, special shipping charge, total spool charge, 
 	//and the final total between them all.	          
 	double    totalShippingCharge  = actualSpoolShipped * SHIPPING_CHARGE,
-		  totalSpecialShipping = actualSpoolShipped * ShipChg,
+		  	  totalSpecialShipping = actualSpoolShipped * ShipChg,
 		      totalSpoolCharge = actualSpoolShipped * UNIT_SPOOL_CHARGE,
-			    finalTotal = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
+			  finalTotal = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
 
 	//Grabbing information from customer
 	cout << endl << endl;
@@ -109,34 +107,7 @@ void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
 	
 }
 
-/*************************************************************
-*				whileLoopValidationChecker					 *
-* This function is a helper function for numberChecker. It   *
-* It takes in 3 string questions, and takes in the input     *
-* variable. Then, it will run a while loop and checks for    *
-* validation through the numberChecker function. If it's     *
-* true, it will exit the function. If false, numChecker will *
-* inform the user, then run through the do-while loop until  *
-* true.                                                      *
-*************************************************************/
 
-//Function to check integers
-void readInput(int &input, int minNum, string question)
-{
-	do {
-		cout << question;
-		cin >> input;		
-	} while(!numberChecker(input, minNum));
-}
-
-//Function to check double
-void readInput(double &input, int minNum, string question)
-{
-	do {
-		cout << question;
-		cin  >> input;	
-	} while(!numberChecker(input, minNum));
-}
 /***************************************************************
  *                       numberChecker                         *
  * 	This function is called by getOrderInfo and passed as      *
@@ -151,36 +122,54 @@ void readInput(double &input, int minNum, string question)
  ***************************************************************/
 
 //Function to check for integers 
-bool numberChecker(int value, int number_floor)
+void integerValidation(int &input, int minNum, string question)
 {
-	bool validNumber = true;
-	if (value < number_floor || cin.fail()) //cin.fail() sees if the data type is correct
+	bool numberPasses;
+	do 
 	{
-		cin.clear();
-		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-							      //This stops repeated error message.
-		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
-		validNumber = false;
-	}
-	return validNumber;
+		cout << question;
+		cin  >> input;	
+		if (input < minNum || cin.fail()) 				  //cin.fail() sees if the data type is correct
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
+							      						  //This stops repeated error message.
+			cout << "***Error, number out of range (less than " << minNum 
+				 << " ) or not a number. Please re-enter.***" << endl;
+			numberPasses = false;
+		}
+		else
+		{
+			numberPasses = true;		
+		}
+	
+	} while(!numberPasses);
 }
+
 
 //Overload function to check for doubles
-bool numberChecker(double value, int number_floor)
+void doubleValidation(double &input, int minNum, string question)
 {
-	bool validNumber = true;
-	if (value < number_floor || cin.fail()) //cin.fail() sees if the data type is correct
+	bool numberPasses = true;
+	do 
 	{
-		cin.clear();
-		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-				                              //This stops repeated error message.
-		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
-		
-		validNumber = false;
-	}
-	return validNumber;
+		cout << question;
+		cin  >> input;	
+		if (input < minNum || cin.fail()) 				  //cin.fail() sees if the data type is correct
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
+							      						  //This stops repeated error message.
+			cout << "***Error, number out of range (less than " << minNum 
+				 << " ) or not a number. Please re-enter.***" << endl;
+			numberPasses = false;
+		}
+		else
+		{
+			numberPasses = true;		
+		}
+	} while(!numberPasses);
 }
-
 
 
 
@@ -208,8 +197,6 @@ How many spools were ordered? -55
 How many spools were ordered? 0
 ***Error, number out of range (less than 1 )or not a number. Please re-enter.***
 How many spools were ordered? 567
-
-
 How many spools are in stock? aa
 ***Error, number out of range (less than 1 )or not a number. Please re-enter.***
 How many spools are in stock? Hello my baby Hello my honey
@@ -224,14 +211,10 @@ above the regular $10.00 per spool rate (0 for none): hello
 ***Error, number out of range (less than 0 )or not a number. Please re-enter.***
 Amount of special shipping charges, per spool, that
 above the regular $10.00 per spool rate (0 for none): 13.99
-
-
         ***Order Summary***
 Spools ordered:                        567
 Spools in this shipment:               532
 Spools on backorder:                    35
-
-
         ***Total Charges***
 Spool Charges:                $   53200.00
 Shipping Charges:             $    5320.00
