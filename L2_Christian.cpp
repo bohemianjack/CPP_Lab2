@@ -8,7 +8,7 @@ using namespace std;
 
 // Declaring constants
 const double UNIT_SPOOL_CHARGE = 100.00, // 100.00 per spool
-	       SHIPPING_CHARGE =  10.00; // Default shipping charge
+	        SHIPPING_CHARGE =  10.00; // Default shipping charge
 
 
 // Function prototypes
