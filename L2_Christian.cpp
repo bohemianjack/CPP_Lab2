@@ -15,8 +15,9 @@ const string QUESTION1 = "How many spools were ordered? ",
 			 			 "above the regular $10.00 per spool rate (0 for none): ";
 	         
 // Function prototypes
-void getOrderInfo (int &, int &, double &);						//Grabs order info
-void processDisplayStatus(const int &, const int &, const double& = SHIPPING_CHARGE);	//Final output, passed by const reference
+void getOrderInfo (int &, int &, double &);						    //Grabs order info
+void processDisplayStatus(const int &, const int &, 
+			    const double& = SHIPPING_CHARGE);	        	    //Final output, passed by const reference
 void integerValidation(int &, int, string); 	 					//Function to handle ints
 void doubleValidation(double &, int, string); 						//Overloader function to handle doubles
 
@@ -45,7 +46,7 @@ int main()
  * any special shipping charges. These values are stored in  *
  * reference parameters.                                     *
  *************************************************************/
-void getOrderInfo (int &order, int &in_stock, double &special_charge)
+void getOrderInfo (int &order, int &in_stock, double &special_charge) 
 {	
 	integerValidation(order, 1, QUESTION1);
 	integerValidation(in_stock, 0, QUESTION2);
@@ -124,16 +125,16 @@ void processDisplayStatus(const int &numOrdered, const int &inStock, const doubl
 //Function to check for integers 
 void integerValidation(int &input, int minNum, string question)
 {
-	bool numberPasses;
+	bool numberPasses = true;
 	do 
 	{
 		cout << question;
 		cin  >> input;	
-		if (input < minNum || cin.fail()) 				  //cin.fail() sees if the data type is correct
+		if (input < minNum || cin.fail()) 		      //cin.fail() sees if the data type is correct
 		{
 			cin.clear();
 			cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-							      						  //This stops repeated error message.
+							              //This stops repeated error message.
 			cout << "***Error, number out of range (less than " << minNum 
 				 << " ) or not a number. Please re-enter.***" << endl;
 			numberPasses = false;
@@ -142,7 +143,6 @@ void integerValidation(int &input, int minNum, string question)
 		{
 			numberPasses = true;		
 		}
-	
 	} while(!numberPasses);
 }
 
@@ -155,11 +155,11 @@ void doubleValidation(double &input, int minNum, string question)
 	{
 		cout << question;
 		cin  >> input;	
-		if (input < minNum || cin.fail()) 				  //cin.fail() sees if the data type is correct
+		if (input < minNum || cin.fail()) 		      //cin.fail() sees if the data type is correct
 		{
 			cin.clear();
 			cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-							      						  //This stops repeated error message.
+							              //This stops repeated error message.
 			cout << "***Error, number out of range (less than " << minNum 
 				 << " ) or not a number. Please re-enter.***" << endl;
 			numberPasses = false;
