@@ -15,16 +15,16 @@ const string QUESTION1 = "How many spools were ordered? ",
 			 			 "above the regular $10.00 per spool rate (0 for none): ";
 	         
 // Function prototypes
-void getOrderInfo (int &, int &, double &);											//Grabs order info
+void getOrderInfo (int &, int &, double &);						//Grabs order info
 void processDisplayStatus(const int &, const int &, const double& = SHIPPING_CHARGE);	//Final output, passed by const reference
-void integerValidation(int &, int, string); 	 					    				//Function to handle ints
-void doubleValidation(double &, int, string); 										//Overloader function to handle doubles
+void integerValidation(int &, int, string); 	 					//Function to handle ints
+void doubleValidation(double &, int, string); 						//Overloader function to handle doubles
 
 //EXECUTE MAIN FUNCTION
 int main()
 {
 	//Initialize variables, which will be manipulated by passing by reference
-	int       numOrdered  =   0,        		// Number of spools ordered
+	int        numOrdered  =   0,        		// Number of spools ordered
                    inStock  =   0;        		// Number of spools in stock
     double   specialCharges = 0.0; 			// Special charges (if any) to ship the spools
     
