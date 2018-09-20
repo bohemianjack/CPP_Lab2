@@ -175,7 +175,7 @@ bool numberChecker(double value, int number_floor)
 	{
 		cin.clear();
 		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-													  //This stops repeated error message.
+							      //This stops repeated error message.
 		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
 		
 		validNumber = false;
