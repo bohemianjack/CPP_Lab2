@@ -1,0 +1,52 @@
+const double UNIT_SPOOL_COST = 100.00,
+                     SHIPPING_CHARGE  = 10.00;
+
+// Function prototypes
+void getOrderInfo (int &, int &, double &);
+void processDisplayStatus(int, int, double = SHIPPING_CHARGE);
+
+int main()
+{
+    int numOrdered = 0,              // Number of spools ordered
+              inStock = 0;                 // Number of spools in stock
+    double specialChgs = 0.0;    // Special charges (if any) to ship the spools
+
+    getOrderInfo(numOrdered, inStock, specialChgs);
+
+//    if Special charges are not zero - call the second function and add shipping and special charges together
+        processDisplayStatus(numOrdered, inStock, SHIPPING_CHARGE + specialChgs);
+//     if Special charges are zero - call the second function and add shipping charges only
+
+       else
+
+
+        processDisplayStatus(numOrdered, inStock, SHIPPING_CHARGE);
+
+    return 0;
+}// end of main function
+
+
+/*************************************************************
+ *                        getOrderInfo                       *
+ * This function is called by main to input and validate     *
+ * the number of spools ordered, the number in stock, and    *
+ * any special shipping charges. These values are stored in  *
+ * reference parameters.                                     *
+ *************************************************************/
+void getOrderInfo(int &order, int &inStock, double &specChg)
+
+{
+
+}
+
+/***************************************************************
+ *                       processDisplayStatus                         *
+ * This function is called by main and passed as arguments the *
+ * number of spools ordered, the number in stock, and the      *
+ * shipping charge per spool. The default value for shipping   *
+ * charge is $10.00. This information is used to display an    *
+ * order status report.                                        *
+ ***************************************************************/
+
+
+void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
