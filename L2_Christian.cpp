@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>		// manipulate output to format
-#include <cctype>	    // to use cin.fail() for validation
+#include <cctype>	    	// to use cin.fail() for validation
 #include <limits>  		// to set max limit for cin.ignore()
 #include <string>		// accepts string characters
 
@@ -8,11 +8,11 @@ using namespace std;
 
 // Declaring constants
 const double UNIT_SPOOL_CHARGE = 100.00, // 100.00 per spool
-			   SHIPPING_CHARGE =  10.00; // Default shipping charge
+	         SHIPPING_CHARGE =  10.00;   // Default shipping charge
 //Constant strings, since the questions never change
 const string question1 = "How many spools were ordered? ",
-	         question2 = "How many spools are in stock? ",
-	         question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
+             question2 = "How many spools are in stock? ",
+	       question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
 	         
 // Function prototypes
 void getOrderInfo (int &, int &, double &);						//Grabs order info
@@ -27,8 +27,8 @@ int main()
 {
 	//Initialize variables, which will be manipulated by passing by reference
 	int       numOrdered  =   0,        		// Number of spools ordered
-                 inStock  =   0;        		// Number of spools in stock
-    double specialCharges = 0.0;    		    // Special charges (if any) to ship the spools
+                   inStock  =   0;        		// Number of spools in stock
+    double   specialCharges = 0.0; 			// Special charges (if any) to ship the spools
     
     //Function to take information from user
 	getOrderInfo(numOrdered, inStock, specialCharges);
@@ -80,9 +80,9 @@ void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
 	//Equations for display. Figure out shipping charge, special shipping charge, total spool charge, 
 	//and the final total between them all.	          
 	double    totalShippingCharge  = actualSpoolShipped * SHIPPING_CHARGE,
-			  totalSpecialShipping = actualSpoolShipped * ShipChg,
-			  totalSpoolCharge     = actualSpoolShipped * UNIT_SPOOL_CHARGE,
-			  finalTotal           = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
+		  totalSpecialShipping = actualSpoolShipped * ShipChg,
+		      totalSpoolCharge = actualSpoolShipped * UNIT_SPOOL_CHARGE,
+			    finalTotal = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
 
 	//Grabbing information from customer
 	cout << endl << endl;
@@ -158,7 +158,7 @@ bool numberChecker(int value, int number_floor)
 	{
 		cin.clear();
 		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-													  //This stops repeated error message.
+							      //This stops repeated error message.
 		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
 		validNumber = false;
 	}
@@ -173,7 +173,7 @@ bool numberChecker(double value, int number_floor)
 	{
 		cin.clear();
 		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-													  //This stops repeated error message.
+				                              //This stops repeated error message.
 		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
 		
 		validNumber = false;
