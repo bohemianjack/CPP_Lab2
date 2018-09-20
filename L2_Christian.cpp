@@ -8,11 +8,11 @@ using namespace std;
 
 // Declaring constants
 const double UNIT_SPOOL_CHARGE = 100.00, // 100.00 per spool
-	         SHIPPING_CHARGE =  10.00;   // Default shipping charge
+	       SHIPPING_CHARGE =  10.00;   // Default shipping charge
 //Constant strings, since the questions never change
 const string question1 = "How many spools were ordered? ",
              question2 = "How many spools are in stock? ",
-	       question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
+	     question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
 	         
 // Function prototypes
 void getOrderInfo (int &, int &, double &);						//Grabs order info
