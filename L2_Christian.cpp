@@ -1,13 +1,6 @@
-// Author:				Jacob Christian
-// Assignment Number:   Lab 2
-// File Name:			L2_Chrisitan.cpp 
-// Course/Section:      COSC 1337 Section 014
-// Date:                Sept 21th, 2018
-// Instructor:          Dr. Bernard Ku	
-
 #include <iostream>
 #include <iomanip>		// manipulate output to format
-#include <cctype>	    // to use cin.fail() for validation
+#include <cctype>	    	// to use cin.fail() for validation
 #include <limits>  		// to set max limit for cin.ignore()
 #include <string>		// accepts string characters
 
@@ -15,33 +8,32 @@ using namespace std;
 
 // Declaring constants
 const double UNIT_SPOOL_CHARGE = 100.00, // 100.00 per spool
-			   SHIPPING_CHARGE =  10.00; // Default shipping charge
+	     SHIPPING_CHARGE =  10.00; // Default shipping charge
 
 
 // Function prototypes
-void getOrderInfo (int &, int &, double &);						//Grabs order info
+void getOrderInfo (int &, int &, double &);			//Grabs order info
 void processDisplayStatus(int, int, double = SHIPPING_CHARGE);	//Final output
-void whileLoopValidationChecker(int &, int, string);			//Loops for numberChecker
-void whileLoopValidationChecker(double &, int, string);			//Overload for doubles
-bool numberChecker(int, int); 	 //Function to handle ints
-bool numberChecker(double, int); //Overloader function to handle doubles
+void whileLoopValidationChecker(int &, int, string);		//Loops for numberChecker
+void whileLoopValidationChecker(double &, int, string);		//Overload for doubles
+bool numberChecker(int, int); 	 				//Function to handle ints
+bool numberChecker(double, int); 				//Overloader for doubles
 
 //EXECUTE MAIN FUNCTION
 int main()
 {
 	//Initialize variables, which will be manipulated by passing by reference
-	int       numOrdered  =   0,        		// Number of spools ordered
-                 inStock  =   0;        		// Number of spools in stock
-    double specialCharges = 0.0;    		    // Special charges (if any) to ship the spools
+	int        numOrdered =   0,        		// Number of spools ordered
+                      instock =   0;        		// Number of spools in stock
+    double     specialCharges = 0.0;    	        // Special charges (if any) to ship the spools
     
-    //Function to take information from user
+    	//Function to take information from user
 	getOrderInfo(numOrdered, inStock, specialCharges);
 	
 	//Function to display messages
 	processDisplayStatus(numOrdered, inStock, specialCharges);
 
-	return 0;
-	
+	return 0;	
 }
 
 /*************************************************************
@@ -58,7 +50,7 @@ void getOrderInfo (int &order, int &in_stock, double &special_charge)
 	string question2 = "How many spools are in stock? ";
 	string question3 = "Amount of special shipping charges, per spool, above the regular $10.00 per spool rate (0 for none): ";
 	
-	
+	//Runs a while loop function to check for validation
 	whileLoopValidationChecker(order, 1, question1);
 	whileLoopValidationChecker(in_stock, 1, question2);
 	whileLoopValidationChecker(special_charge, 0, question3);
@@ -89,10 +81,10 @@ void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
 			   
 	//Equations for display. Figure out shipping charge, special shipping charge, total spool charge, 
 	//and the final total between them all.	          
-	double    totalShippingCharge  = actualSpoolShipped * SHIPPING_CHARGE,
-			  totalSpecialShipping = actualSpoolShipped * ShipChg,
-			  totalSpoolCharge     = actualSpoolShipped * UNIT_SPOOL_CHARGE,
-			  finalTotal           = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
+	double     totalShippingCharge = actualSpoolShipped * SHIPPING_CHARGE,
+		  totalSpecialShipping = actualSpoolShipped * ShipChg,
+		      totalSpoolCharge = actualSpoolShipped * UNIT_SPOOL_CHARGE,
+		            finalTotal = totalSpoolCharge + totalShippingCharge + totalSpecialShipping;			  
 
 	//Grabbing information from customer
 	cout << endl << endl;
@@ -120,7 +112,7 @@ void processDisplayStatus(int numOrdered, int inStock, double ShipChg)
 }
 
 /*************************************************************
-*				whileLoopValidationChecker					 *
+*				whileLoopValidationChecker   *
 * This function is a helper function for numberChecker. It   *
 * It takes in 3 string questions, and takes in the input     *
 * variable. Then, it will run a while loop and checks for    *
@@ -168,7 +160,7 @@ bool numberChecker(int value, int number_floor)
 	{
 		cin.clear();
 		cin.ignore(numeric_limits<int>::max(), '\n'); //numeric_limits<int> will ignore the buffer for the max lines. 
-													  //This stops repeated error message.
+							      //This stops repeated error message.
 		cout << "***Error, number out of range (less than " << number_floor << " ) or not a number. Please re-enter.***" << endl;
 		validNumber = false;
 	}
