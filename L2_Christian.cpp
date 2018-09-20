@@ -23,7 +23,7 @@ bool numberChecker(double, int); 				//Overloader for doubles
 int main()
 {
 	//Initialize variables, which will be manipulated by passing by reference
-	int        numOrdered =   0,        		// Number of spools ordered
+	int         numOrdered =   0,        		// Number of spools ordered
                       instock =   0;        		// Number of spools in stock
     double     specialCharges = 0.0;    	        // Special charges (if any) to ship the spools
     
